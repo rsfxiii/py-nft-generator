@@ -3,10 +3,13 @@
 import json
 import os
 import random
+from typing import Type
+
 
 from PIL import Image
 
 from config import layers
+from src import read_yaml_config
 
 
 def make_dirs():
@@ -98,20 +101,21 @@ def create_image(token_name: str, edition: int, final_layers: list):
     background_layer.save(f'build/images/{token_name}-{edition}.png')
 
 
-def main():
+def main(config: dict):
     """Takes inputs for the desired images. Creates a build directory, edition counter, then loops
     through for the desired amount. DNA keeps track of each created image to avoid duplicates."""
 
-    token_name = input('Enter the name for your tokens. \
-        This will appear as the name for each image\n')
-    description = input('Enter the description for your tokens\n')
-    amount = int(input('Enter the amount of images you would like created\n'))
-
-    edition = 1
+    token_name = config['token']['name']
+    description = config['token']['description']
+    amount = config['token']['amount']
+    
+    assets_path = config['assets_directory']
+    
+    edition = 0
     dna_set = set()
 
     make_dirs()
-    assets_directory = os.path.join(os.getcwd(), 'assets')
+    assets_directory = os.path.join(os.getcwd(), assets_path)
 
     for _ in range(amount):
 
@@ -131,4 +135,5 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    config = read_yaml_config('config.yaml')
+    main(config)
