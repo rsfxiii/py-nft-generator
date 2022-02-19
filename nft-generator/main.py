@@ -3,8 +3,6 @@
 import json
 import os
 import random
-from typing import Type
-
 
 from PIL import Image
 
