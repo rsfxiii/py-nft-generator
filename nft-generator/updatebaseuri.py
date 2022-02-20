@@ -1,3 +1,5 @@
+""" Retroactively replaces the JSON 'baseURI' file after it is known """
+
 import json
 
 def update_base_uri():
@@ -16,7 +18,7 @@ def update_base_uri():
 
         # TODO: These probably don't need to be two file operations separately
         # Opens json file
-        with open(json_path, 'r') as infile:
+        with open(json_path, 'r', encoding='utf-8') as infile:
 
             # Load the opened json file into a Python dict
             data = json.load(infile)
@@ -25,7 +27,7 @@ def update_base_uri():
             data['image'] = data['image'].replace('baseURI', new_uri)
 
         # Opens the original json file and writes the new data
-        with open(json_path, 'w') as outfile:
+        with open(json_path, 'w', encoding='utf-8') as outfile:
             json.dump(data, outfile, indent=2)
 
         edition += 1

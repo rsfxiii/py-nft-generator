@@ -1,0 +1,43 @@
+# NFT Metadata
+token:
+  name: test-example-token
+  description: This is my generative NFT collection
+  amount: 10
+
+# Layers directory is expected to exist here, if it doesn't, it will be created with its layers directories
+assets_directory: test-example
+
+# The order of placement in the layers array determines the z-index placement of the layers in the final image.
+# The higher the item in the list, the closer to the background the layer will be located.
+# The background should always be at the back of the image, in the background, hence the name, so it's the first in the list.
+# If the directory does not exist, it should be created for convenience - it is expected within the assets directory
+layers:
+  - name: background
+    trait: Background
+    directory: layers/background
+  - name: rarity-banner
+    directory: layers/rarity-banner
+
+# Because they are stated here, these are expected to occur as directories within each layer's directory
+# stated above, e.g. exammple/layers/background/common
+# If they do not exist, they will be created for convenience
+trait_categories:
+  - common
+  - uncommon
+  - rare
+
+# trait_distributions are definitions on the categories of NFTs in the token collection.
+# Note: Frequencies must always add up to 100 in total
+# These values will be used to determine drop percentage when choosing layers assets from categories
+trait_distribution:
+  categories:
+    - name: common
+      frequency: 45.0
+    - name: uncommon
+      frequency: 28.0
+    - name: rare
+      frequency: 14.5
+    - name: epic
+      frequency: 8.5
+    - name: legendary
+      frequency: 4.0
